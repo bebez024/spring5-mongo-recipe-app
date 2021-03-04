@@ -24,7 +24,7 @@ public class CategoryReactiveRepositoryTest {
     }
 
     @Test
-    public void testSave() {
+    public void testSave() throws Exception {
         Category category = new Category();
         category.setDescription("Foo");
 
@@ -36,14 +36,14 @@ public class CategoryReactiveRepositoryTest {
     }
 
     @Test
-    public void testFindByDescription() {
+    public void testFindByDescription() throws Exception {
         Category category = new Category();
         category.setDescription("Foo");
 
-        categoryReactiveRepository.save(category).block();
+        categoryReactiveRepository.save(category).then().block();
 
-        Category loadedCategory = categoryReactiveRepository.findByDescription("Foo").block();
+        Category fetchedCat = categoryReactiveRepository.findByDescription("Foo").block();
 
-        assertNotNull(loadedCategory.getId());
+        assertNotNull(fetchedCat.getId());
     }
 }

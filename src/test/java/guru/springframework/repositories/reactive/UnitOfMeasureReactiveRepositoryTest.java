@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class UnitOfMeasureReactiveRepositoryTest {
 
     public static final String EACH = "Each";
+
     @Autowired
     UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
 
@@ -24,7 +25,7 @@ public class UnitOfMeasureReactiveRepositoryTest {
     }
 
     @Test
-    public void testSave() {
+    public void testSaveUom() throws Exception {
         UnitOfMeasure uom = new UnitOfMeasure();
         uom.setDescription(EACH);
 
@@ -33,17 +34,19 @@ public class UnitOfMeasureReactiveRepositoryTest {
         Long count = unitOfMeasureReactiveRepository.count().block();
 
         assertEquals(Long.valueOf(1L), count);
+
     }
 
     @Test
-    public void testFindByDescription() {
+    public void testFindByDescription() throws Exception {
         UnitOfMeasure uom = new UnitOfMeasure();
         uom.setDescription(EACH);
 
         unitOfMeasureReactiveRepository.save(uom).block();
 
-        UnitOfMeasure loadedUom = unitOfMeasureReactiveRepository.findByDescription(EACH).block();
+        UnitOfMeasure fetchedUOM = unitOfMeasureReactiveRepository.findByDescription(EACH).block();
 
-        assertEquals(EACH, loadedUom.getDescription());
+        assertEquals(EACH, fetchedUOM.getDescription());
+
     }
 }
